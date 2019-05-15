@@ -1,0 +1,58 @@
+html {
+    display: block !important;
+    color: $color_black;
+    background: #fff;
+    font-family: $font_base;
+    font-size: 10px;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+
+    // fluid font
+    // font-size: calc( Fmin + (Fmax - Fmin) * (100vw - Vmin)/(Vmax - Vmin) );
+    @include mq(1024, 1279) {
+        font-size: calc(8.5px + 1.5 * (100vw - 1024px) / 255);
+    }
+    
+    @include mq(768, 1023) {
+        font-size: calc(10px + 6 * (100vw - 768px) / 255);
+    }
+    
+    @include mq(767) {
+        font-size: calc(10px + 13 * (100vw - 320px) / 447);
+    }
+
+    // popup bugfix in iOS
+    &.is-popup-overflow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        //overflow: hidden;
+    }
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+
+    // popup bugfix in iOS
+    &.is-popup-overflow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+}
+
+a {
+    color: $color_black;
+    text-decoration: none;
+}
+
+input, select, button {
+    -webkit-appearance: none;
+    appearance: none;
+}
