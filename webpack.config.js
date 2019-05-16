@@ -6,7 +6,7 @@ const autoprefixer = require('autoprefixer');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const fs = require('fs');
 
-const isNeedSourceMap = false; // source map
+const isNeedSourceMap = true; // source map
 
 // just html pages transfer
 function generateHtmlPlugins(templateDir) {
@@ -27,10 +27,7 @@ const htmlPlugins = generateHtmlPlugins('./src/markup/pages');
 
 module.exports = (env, argv) => {
   return {
-    entry: [
-      './src/static/js/main.js',
-      './src/static/scss/main.scss'
-    ],
+    entry: ['./src/static/js/main.js'],
     output: {
       filename: './assets/js/main.min.js'
     },
@@ -62,7 +59,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(sass|scss)$/,
-          include: path.resolve(__dirname, 'src/static/scss'),
+          // include: path.resolve(__dirname, 'src/static/scss'),
           exclude: [/node_modules/],
           use: ExtractTextPlugin.extract({
             use: [
@@ -89,16 +86,6 @@ module.exports = (env, argv) => {
             ]
           })
         },
-        // {
-        //   test: /\.html$/,
-        //   include: [
-        //     path.resolve(__dirname, 'src/markup/components'),
-        //     path.resolve(__dirname, 'src/markup/layouts'),
-        //     path.resolve(__dirname, 'src/markup/pages')
-        //   ],
-        //   exclude: [/node_modules/],
-        //   use: ['raw-loader']
-        // },
       ]
     },
     plugins: [
@@ -144,17 +131,14 @@ module.exports = (env, argv) => {
       children: false,
       entrypoints: false,
       hash: false,
-      modules: false,
+      modules: true,
       version: false,
       errors: true
     },
     devtool: isNeedSourceMap ? 'source-map' : false,
     resolve: {
       alias: {
-        'vue$': 'vue/dist/vue.esm.js',
-        modules: path.resolve(__dirname, 'src/markup/components'),
-        components: path.resolve(__dirname, 'src/markup/components'),
-        static: path.resolve(__dirname, 'src/markup/components')
+        'vue$': 'vue/dist/vue.esm.js'
       }
     }
   };

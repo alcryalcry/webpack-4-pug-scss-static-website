@@ -5,8 +5,10 @@ extends ../layouts/layout.pug
 block content
   -
     const list = ['PUG', 'LAYOUT', 'SVG', 'JSON-SERVER'];
-  a(href="/page.html") page
-  ul(style="font-size: 10rem")
-    each item, index in list
-      li
-        h1!=`${index + 1} - ${item}`
+
+  .container
+    a.link.js-btn(href="/page.html") link to page
+    ul(style="font-size: 4rem")
+      each item, index in list
+        li
+          h1!=`${index + 1} - ${item}`

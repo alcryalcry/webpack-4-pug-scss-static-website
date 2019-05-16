@@ -1,3 +1,4 @@
 export default function () {
-  console.warn('I am the BUTTON');
+  const el = document.querySelector('.js-btn');
+  console.warn(el);
 }

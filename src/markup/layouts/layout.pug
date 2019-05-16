@@ -1,20 +1,25 @@
+include ./_head.pug
+include ./../components/header/header.pug
+include ./../components/footer/footer.pug
+
 
 doctype html
-html(lang="ru")
-head
-  meta(charset="UTF-8")
-  meta(name="viewport" content="width=device-width, initial-scale=1.0")
-  meta(http-equiv="X-UA-Compatible" content="ie=edge")
-  title 123
-  link(rel="shortcut icon" href="assets/img/favicon.ico")
-  link(rel="stylesheet" href="assets/css/style.min.css")
+html(lang='ru')
+  head
+    block head
+      +head()
 
-body
-  .main.js-main
-    main.main-wrapper.js-main-wrapper
-      block content
+  body
+    .page
 
-footer FOOTER
+      block header
+        +header()
+
+      main.main.js-main
+        .main__wrapper.js-main-wrapper
+          block content
+
+      block footer
+        +footer()
 
 script(src="assets/js/main.min.js")
-

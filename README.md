@@ -1,4 +1,4 @@
-# Project guide based on webpack 4
+# Project guide based on webpack 4 (OLD VERSION OF DOCS)
 ## General information
 Для работы со сборкой необходимо установить [Node.js](https://nodejs.org/en/download/) версии 6 и выше.
 
