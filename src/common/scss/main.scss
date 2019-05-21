@@ -4,8 +4,5 @@
 @import "core/mixins";
 @import "core/common";
 @import "core/helpers";
-
-
-
-@import "../../markup/components/footer/footer.scss";
-@import "../../markup/components/btn/btn.scss";
+@import "../../components/footer/footer.scss";
+@import "../../components/btn/btn.scss";

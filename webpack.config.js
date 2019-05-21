@@ -23,11 +23,11 @@ function generateHtmlPlugins(templateDir) {
   });
 }
 // just html pages transfer
-const htmlPlugins = generateHtmlPlugins('./src/markup/pages');
+const htmlPlugins = generateHtmlPlugins('./src/pages');
 
 module.exports = (env, argv) => {
   return {
-    entry: ['./src/static/js/main.js'],
+    entry: ['babel-polyfill', './src/common/js/main.js'],
     output: {
       filename: './assets/js/main.min.js'
     },
@@ -47,7 +47,7 @@ module.exports = (env, argv) => {
           test: /\.js$/,
           loader: 'eslint-loader',
           enforce: 'pre',
-          include: path.resolve(__dirname, 'src/markup'),
+          include: path.resolve(__dirname, 'src/'),
           options: {
             configFile: path.resolve(__dirname, '.eslintrc')
           }
@@ -91,7 +91,7 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: 'src/markup/pages/index.pug',
+        template: 'src/pages/index.pug',
         inject: false
       }),
       new ExtractTextPlugin(

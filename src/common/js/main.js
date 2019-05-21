@@ -1,9 +1,8 @@
 import '../scss/main.scss';
 import './helpers/forEach';
+import svg from './helpers/svg';
 import run from './helpers/run';
 
+svg()
 
-
-import btn from '../../markup/components/btn/btn';
-
-run('.js-btn', btn);
+run('.js-btn', 'btn/btn');
