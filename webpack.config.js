@@ -1,12 +1,19 @@
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const fs = require('fs');
 
-const isNeedSourceMap = true; // source map
+
+const settings = {
+  sourceMap: false,
+  analyze: false
+}
+
 
 // just html pages transfer
 function generateHtmlPlugins(templateDir) {
@@ -29,44 +36,109 @@ module.exports = (env, argv) => {
   return {
     entry: ['babel-polyfill', './src/common/js/main.js'],
     output: {
-      filename: './assets/js/main.min.js'
+      filename: './assets/js/main.min.js',
+      path: path.resolve(__dirname, 'dist'),
+      publicPath: './'
     },
+    devtool: settings.sourceMap,
+    stats: {
+      assets: false,
+      builtAt: false,
+      children: false,
+      entrypoints: false,
+      hash: false,
+      modules: true,
+      version: false,
+      errors: true
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'main',
+            test: /\.(sass|scss)$/,
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      },
+    },
+    plugins: [
+      new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns: [path.resolve(__dirname, 'dist')],
+        cleanAfterEveryBuildPatterns: ['!assets/**/*'],
+        verbose: true,
+        dry: false
+      }),
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: 'src/pages/index.pug',
+        inject: false
+      }),
+      new MiniCssExtractPlugin({
+        filename: './assets/css/[name].css',
+      }),
+      new CopyWebpackPlugin(
+        [
+          { from: './src/static', to: './assets' }
+        ]
+      ),
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: settings.analyze,
+      }),
+      new BrowserSyncPlugin({
+        server: {
+          baseDir: 'dist',
+          index: 'index.html'
+        },
+        open: false,
+        online: true,
+        tunnel: false,
+        host: '192.168.1.14', // need PC local address (for mobile access)
+        port: 3000,
+        files: ['dist/*.html']
+      }),
+    ].concat(htmlPlugins),
     module: {
       rules: [
         {
+          enforce: "pre",
           test: /\.js$/,
-          exclude: [/node_modules/],
-          use: {
-            loader: 'babel-loader',
-            options: {
-              'presets': ['@babel/preset-env']
-            }
-          }
-        },
-        {
-          test: /\.js$/,
-          loader: 'eslint-loader',
-          enforce: 'pre',
-          include: path.resolve(__dirname, 'src/'),
+          exclude: /node_modules/,
+          loader: "eslint-loader",
           options: {
             configFile: path.resolve(__dirname, '.eslintrc')
           }
         },
         {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: "babel-loader",
+          options: {
+            'presets': ['@babel/preset-env']
+          }
+        },
+        {
           test: /\.pug$/,
           exclude: /node_modules/,
-          use: ['html-loader?attrs=false', 'pug-html-loader']
+          use: ['html-loader', 'pug-html-loader']
         },
         {
           test: /\.(sass|scss)$/,
-          // include: path.resolve(__dirname, 'src/static/scss'),
           exclude: [/node_modules/],
-          use: ExtractTextPlugin.extract({
-            use: [
+          use: [
+              {
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                  hmr: argv.mode !== 'production',
+                  publicPath: '../'
+                },
+              },
               {
                 loader: 'css-loader',
                 options: {
-                  minimize: argv.mode === 'production' ? true : false,
+                  // minimize: argv.mode === 'production' ? true : false,
                   url: false
                 }
               },
@@ -83,59 +155,10 @@ module.exports = (env, argv) => {
               {
                 loader: 'sass-loader',
               }
-            ]
-          })
+          ]
         },
       ]
     },
-    plugins: [
-      new HtmlWebpackPlugin({
-        filename: 'index.html',
-        template: 'src/pages/index.pug',
-        inject: false
-      }),
-      new ExtractTextPlugin(
-        {
-          filename: './assets/css/style.min.css',
-          allChunks: true,
-        }
-      ),
-      new CopyWebpackPlugin(
-        [
-          {
-            from: './src/static/fonts',
-            to: './assets/fonts'
-          },
-          {
-            from: './src/static/img',
-            to: './assets/img'
-          },
-        ]
-      ),
-      new BrowserSyncPlugin({
-        server: {
-          baseDir: 'dist',
-          index: 'index.html'
-        },
-        online: true,
-        tunnel: false,
-        host: '192.168.1.14', // need PC local address (for mobile access)
-        port: 3000,
-        files: ['dist/*.html']
-      })
-    // ],
-    ].concat(htmlPlugins),
-    stats: {
-      assets: false,
-      builtAt: false,
-      children: false,
-      entrypoints: false,
-      hash: false,
-      modules: true,
-      version: false,
-      errors: true
-    },
-    devtool: isNeedSourceMap ? 'source-map' : false,
     resolve: {
       alias: {
         'vue$': 'vue/dist/vue.esm.js'
