@@ -132,7 +132,6 @@ module.exports = (env, argv) => {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
                   hmr: argv.mode !== 'production',
-                  publicPath: '../'
                 },
               },
               {
