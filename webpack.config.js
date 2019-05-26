@@ -38,7 +38,6 @@ module.exports = (env, argv) => {
     output: {
       filename: './assets/js/main.min.js',
       path: path.resolve(__dirname, 'dist'),
-      publicPath: './'
     },
     devtool: settings.sourceMap,
     stats: {
@@ -121,18 +120,26 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.pug$/,
-          exclude: /node_modules/,
-          use: ['html-loader', 'pug-html-loader']
+          use: [
+            'html-loader',
+            {
+              loader: 'pug-html-loader',
+              query: {
+                pretty: true
+              } 
+            } 
+            
+          ]
         },
         {
           test: /\.(sass|scss)$/,
-          exclude: [/node_modules/],
+          exclude: /node_modules/,
           use: [
               {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
                   hmr: argv.mode !== 'production',
-                  publicPath: '../'
+                  // publicPath: '../'
                 },
               },
               {
