@@ -1,7 +1,7 @@
 import '../scss/main.scss';
-import './helpers/forEach';
-import svg from './helpers/svg';
-import run from './helpers/run';
+import './plugins/forEach';
+import svg from './plugins/svg';
+import run from './plugins/run';
 
 svg()
 
