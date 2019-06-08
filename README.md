@@ -1,17 +1,19 @@
 # Project guide of webpack-4-pug-scss-static-website
 
-Frontend scaffolding tool using pug, SCSS, JSON-server based on Webpack 4
+Frontend scaffolding tool based on Webpack 4 using pug, SCSS, JSON-server
 
 
 ## Installation
 1. [Node.js](https://nodejs.org/en/download/) 
 1. `npm i`
+1. `cd mockapi && npm i`
 
 
 ## Start
 1. `npm run dev` - dev server
 1. `npm run build` - build to dist folder
 1. `npm run production` - build minified version to dist folder
+1. `npm run api` - JSON-server (fake API)
 
 
 ## Project structure
@@ -19,7 +21,7 @@ Frontend scaffolding tool using pug, SCSS, JSON-server based on Webpack 4
     * `components` - detached components
     * `layouts` - header and footer to create a basic page structure
     * `pages` - pages
-    * `common` - general styles and scripts of the project
+    * `common` - general styles and scripts
         * `js` - js scripts
         * `scss` - styles in .scss format
     * `static` - any static resources that are copied to the root folder 'dist'
@@ -35,6 +37,11 @@ Frontend scaffolding tool using pug, SCSS, JSON-server based on Webpack 4
         * `json` - JSON files
     * `*.html` - all pages
     * `index.html` - start page
+* `mockapi` - JSON-server folder
+    * `routes` - fake backend files (using in db.js or middlewares.js)
+    * `db.js` - database (using Node.js)
+    * `middlewares.js` - middlewares (using Node.js)
+
 
 
 ## Update packages versions

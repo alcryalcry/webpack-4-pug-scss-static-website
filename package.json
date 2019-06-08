@@ -1,12 +1,12 @@
 {
   "name": "webpack-4-pug-scss-static-website",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "author": "Alexander Shiryakov (alcryalcry@gmail.com)",
   "contributors": [
     "Alexander Shiryakov (alcryalcry@gmail.com)"
   ],
   "main": "src/common/js/main.js",
-  "description": "Frontend scaffolding tool using pug, SCSS, JSON-server based on Webpack 4",
+  "description": "Frontend scaffolding tool based on Webpack 4 using pug, SCSS, JSON-server",
   "scripts": {
     "dev": "webpack --watch --mode development",
     "build": "dist && webpack --mode development",
@@ -20,8 +20,6 @@
     "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-minify": "^0.5.0",
     "browser-sync": "^2.26.5",
     "browser-sync-webpack-plugin": "^2.2.2",
     "clean-webpack-plugin": "^2.0.2",
@@ -29,8 +27,6 @@
     "css-loader": "^2.1.1",
     "eslint": "^5.16.0",
     "eslint-loader": "^2.1.2",
-    "eslint-plugin-vue": "^5.2.2",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.6.0",
@@ -39,14 +35,12 @@
     "pug": "^2.0.3",
     "pug-html-loader": "^1.1.5",
     "pug-loader": "^2.4.0",
-    "raw-loader": "^2.0.0",
     "sass-loader": "^7.1.0",
     "webpack": "^4.32.0",
     "webpack-bundle-analyzer": "^3.3.2",
-    "webpack-cli": "^3.3.2"
+    "webpack-cli": "^3.3.3"
   },
   "dependencies": {
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "vue": "^2.6.10"
   }
 }

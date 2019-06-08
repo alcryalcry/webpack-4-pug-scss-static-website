@@ -34,7 +34,7 @@ const htmlPlugins = generateHtmlPlugins('./src/pages');
 
 module.exports = (env, argv) => {
   return {
-    entry: ['babel-polyfill', './src/common/js/main.js'],
+    entry: ['./src/common/js/main.js'],
     output: {
       filename: './assets/js/main.min.js',
       path: path.resolve(__dirname, 'dist'),
@@ -95,7 +95,7 @@ module.exports = (env, argv) => {
         online: true,
         tunnel: false,
         host: '192.168.1.14', // need PC local address (for mobile access)
-        port: 3000,
+        port: 3004,
         files: ['dist/*.html']
       }),
     ].concat(htmlPlugins),

@@ -1,8 +1,9 @@
-export default function(selector, name) {
-  const elements = document.querySelectorAll(selector)
-  elements.forEach((item) => {
-    import(`../../../components/${name}.js`).then(({ default: component }) => {
-      component(item)
-    })
-  })
+export default function run(selector, component) {
+  const elements = document.querySelectorAll(selector);
+  if (elements.length) {
+    elements.forEach(item => {
+      // item.dataset.initalized = 'true';
+      component(item);
+    });
+  }
 }
