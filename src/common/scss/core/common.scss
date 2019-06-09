@@ -88,3 +88,7 @@ a {
   color: $black;
   text-decoration: none;
 }
+
+[v-cloak] {
+  display: none;
+}

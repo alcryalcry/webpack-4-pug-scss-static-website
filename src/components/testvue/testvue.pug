@@ -1,0 +1,10 @@
+mixin testvue(data = {})
+  -
+    const {
+    } = data;
+
+  .js-testvue(v-cloak)
+    ul
+      li(v-for="(item, index) in list") 
+        button(@click="clickaction(index)") {{ index }} - {{ item }}
+    

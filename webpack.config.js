@@ -6,12 +6,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const fs = require('fs');
 
 
 const settings = {
   sourceMap: false,
-  analyze: false
+  bundleAnalyze: false
 }
 
 
@@ -82,9 +83,10 @@ module.exports = (env, argv) => {
           { from: './src/static', to: './assets' }
         ]
       ),
+      // new VueLoaderPlugin(),
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
-        openAnalyzer: settings.analyze,
+        openAnalyzer: settings.bundleAnalyze,
       }),
       new BrowserSyncPlugin({
         server: {
@@ -131,6 +133,11 @@ module.exports = (env, argv) => {
             
           ]
         },
+        // {
+        //   test: /\.vue$/,
+        //   exclude: /node_modules/,
+        //   loader: 'vue-loader'
+        // },
         {
           test: /\.(sass|scss)$/,
           exclude: /node_modules/,
@@ -138,14 +145,12 @@ module.exports = (env, argv) => {
               {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
-                  hmr: argv.mode !== 'production',
-                  // publicPath: '../'
+                  hmr: argv.mode !== 'production'
                 },
               },
               {
                 loader: 'css-loader',
                 options: {
-                  // minimize: argv.mode === 'production' ? true : false,
                   url: false
                 }
               },

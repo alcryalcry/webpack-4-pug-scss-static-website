@@ -5,7 +5,7 @@ extends ../layouts/layout.pug
 
 block content
   -
-    const list = ['Настроить Vue.js'];
+    const list = ['Настроить Vue loader для файлов *.vue'];
 
   .container
     a.link.js-btn(href="/page.html") link to page
@@ -13,3 +13,4 @@ block content
       each item, index in list
         li
           h1!=`${index + 1} - ${item}`
+    +testvue

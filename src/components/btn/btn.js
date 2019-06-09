@@ -1,4 +1,3 @@
-export default function () {
-  const el = document.querySelector('.js-btn');
+export default function (el) {
   console.warn(el);
 }
