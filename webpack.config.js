@@ -143,19 +143,6 @@ module.exports = (env, argv) => {
           test: /\.vue$/,
           loader: 'vue-loader'
         },
-        // {
-        //   test: /\.pug$/,
-        //   use: [
-        //     'html-loader',
-        //     {
-        //       loader: 'pug-html-loader',
-        //       query: {
-        //         pretty: true
-        //       } 
-        //     } 
-            
-        //   ]
-        // },
         {
           test: /\.(sass|scss)$/,
           exclude: /node_modules/,
