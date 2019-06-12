@@ -2,5 +2,5 @@
 [Rr]eleases/
 [Bb]uild/
 [Dd]ist/
-project.lock.json
+package-lock.json
 node_modules
