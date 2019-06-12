@@ -3,8 +3,8 @@ import './plugins/forEach';
 import run from './plugins/run';
 
 
-import btn from '../../components/btn/btn';
+import header from '../../components/header/header';
 import testvue from '../../components/testvue/testvue';
 
-run('.js-btn', btn);
+run('.js-page', header)
 run('.js-testvue', testvue);

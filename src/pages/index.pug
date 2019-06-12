@@ -1,16 +1,18 @@
 extends ../layouts/layout.pug
 
-//- include ../components/btn/btn
-//- svg(data-url="./assets/svg/arrow.svg")
+//- SVG
+//- include ../static/svg/icon
 
 block content
-  -
-    const list = ['Настроить Vue loader для файлов *.vue'];
-
   .container
     a.link.js-btn(href="/page.html") link to page
-    ul(style="font-size: 4rem")
-      each item, index in list
-        li
-          h1!=`${index + 1} - ${item}`
     +testvue
+
+    .container
+      .row
+        .col-6.col-t-6
+          h1(style="height: 20rem; background-color: lightgreen;") col-6 <br> col-t-6
+        .col-2.col-t-2
+          h1(style="height: 20rem; background-color: lightgreen;") col-2 <br> col-t-2
+        .col-4.col-t-4
+          h1(style="height: 20rem; background-color: lightgreen;") col-4 <br> col-t-4

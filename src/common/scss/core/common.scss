@@ -10,7 +10,7 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 
-  // fluid font
+  // FLUID FONT
   // font-size: calc( Fmin + (Fmax - Fmin) * (100vw - Vmin)/(Vmax - Vmin) );
   @include mq(1024, 1279) {
     font-size: calc(8.5px + 1.5 * (100vw - 1024px) / 255);
@@ -33,7 +33,6 @@ html {
     height: 100vh;
   }
 }
-
 
 body {
   position: relative;
@@ -65,28 +64,38 @@ body {
 }
 
 .container {
-  max-width: 120rem;
-  margin: 0 auto;
-  // padding: 8rem 0;
-
-  @include mq(1279) {
-    margin: 0 115px;
+  @include desktop {
+    width:  $containerWidth;
+    margin: 0 auto;
+    padding: $sectionOffsetVertical 0;
   }
 
-  @include mq(1023) {
-    margin: 0 85px;
-    // padding: 6rem 0;
+  @include tablet {
+    padding: $sectionOffsetVerticalTablet $sectionOffsetHorizontalTablet;
   }
   
-  @include mq(767) {
-    margin: 0 20px;
-    // padding: 4rem 2rem;
+  @include mobile {
+    padding: $sectionOffsetVerticalMobile $sectionOffsetHorizontalMobile;
+  }
+
+  &.no-ptb {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
+
+
+
+
+
 
 a {
   color: $black;
   text-decoration: none;
+}
+
+.link {
+  transition: $tColor;
 }
 
 [v-cloak] {

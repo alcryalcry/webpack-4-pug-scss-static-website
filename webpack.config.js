@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-// const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const fs = require('fs');
 
 
@@ -83,7 +83,6 @@ module.exports = (env, argv) => {
           { from: './src/static', to: './assets' }
         ]
       ),
-      // new VueLoaderPlugin(),
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         openAnalyzer: settings.bundleAnalyze,
@@ -100,6 +99,7 @@ module.exports = (env, argv) => {
         port: 3004,
         files: ['dist/*.html']
       }),
+      new VueLoaderPlugin(),
     ].concat(htmlPlugins),
     module: {
       rules: [
@@ -120,53 +120,71 @@ module.exports = (env, argv) => {
             'presets': ['@babel/preset-env']
           }
         },
+        { 
+          test: /\.html$/,
+          use: 'vue-template-loader'
+        },
         {
           test: /\.pug$/,
-          use: [
-            'html-loader',
+          oneOf: [
             {
-              loader: 'pug-html-loader',
-              query: {
-                pretty: true
-              } 
-            } 
-            
+              resourceQuery: /^\?vue/,
+              use: ["pug-plain-loader"]
+            }, 
+            {
+              use: [
+                "html-loader",
+                "pug-html-loader"
+              ]
+            }
           ]
         },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader'
+        },
         // {
-        //   test: /\.vue$/,
-        //   exclude: /node_modules/,
-        //   loader: 'vue-loader'
+        //   test: /\.pug$/,
+        //   use: [
+        //     'html-loader',
+        //     {
+        //       loader: 'pug-html-loader',
+        //       query: {
+        //         pretty: true
+        //       } 
+        //     } 
+            
+        //   ]
         // },
         {
           test: /\.(sass|scss)$/,
           exclude: /node_modules/,
           use: [
-              {
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                  hmr: argv.mode !== 'production'
-                },
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                hmr: argv.mode !== 'production'
               },
-              {
-                loader: 'css-loader',
-                options: {
-                  url: false
-                }
-              },
-              {
-                loader: 'postcss-loader',
-                options: {
-                  plugins: [
-                    autoprefixer({
-                      browsers: ['ie >= 10', 'last 4 version']
-                    })
-                  ]
-                }
-              },
-              {
-                loader: 'sass-loader',
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                url: false
               }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  autoprefixer({
+                    browsers: ['ie >= 10', 'last 4 version']
+                  })
+                ]
+              }
+            },
+            {
+              loader: 'sass-loader',
+            }
           ]
         },
       ]
